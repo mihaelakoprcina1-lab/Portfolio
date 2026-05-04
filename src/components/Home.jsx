@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 import coupe from '../assets/coupe.png'
 import ellipse from '../assets/ellipse.svg'
-import star7 from '../assets/star-7.svg'
+import star7 from '../assets/star-home.svg'
 import styles from './Home.module.css'
 
 const WHISKEY_SOUR = {
