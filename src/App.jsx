@@ -31,6 +31,33 @@ function MobileScaler({ children }) {
   )
 }
 
+function DesktopScaler({ children }) {
+  const getScale = () => Math.min(
+    window.innerWidth  / 1440,
+    window.innerHeight / 760
+  )
+  const [scale, setScale] = useState(getScale)
+
+  useEffect(() => {
+    const update = () => setScale(getScale())
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  return (
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', background: '#680E0F' }}>
+      <div style={{
+        width: 1440,
+        height: 760,
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+      }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [page, setPage] = useState('home')
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
@@ -44,16 +71,16 @@ export default function App() {
   const navigate = useCallback((next) => setPage(next), [])
 
   if (isMobile) {
-    if (page === 'about') return <MobileScaler><AboutMobile onNavigate={navigate} /></MobileScaler>
+    if (page === 'about')    return <MobileScaler><AboutMobile    onNavigate={navigate} /></MobileScaler>
     if (page === 'projects') return <MobileScaler><ProjectsMobile onNavigate={navigate} /></MobileScaler>
     if (page.startsWith('project-')) return <ProjectDetail projectId={page.replace('project-', '')} onNavigate={navigate} />
-    if (page === 'contact') return <Contact onNavigate={navigate} />
+    if (page === 'contact')  return <Contact onNavigate={navigate} />
     return <MobileScaler><HomeMobile onNavigate={navigate} /></MobileScaler>
   }
 
-  if (page === 'about') return <About onNavigate={navigate} />
-  if (page === 'projects') return <Projects onNavigate={navigate} />
-  if (page.startsWith('project-')) return <ProjectDetail projectId={page.replace('project-', '')} onNavigate={navigate} />
-  if (page === 'contact') return <Contact onNavigate={navigate} />
-  return <Home onNavigate={navigate} />
+  if (page === 'about')    return <DesktopScaler><About    onNavigate={navigate} /></DesktopScaler>
+  if (page === 'projects') return <DesktopScaler><Projects onNavigate={navigate} /></DesktopScaler>
+  if (page.startsWith('project-')) return <DesktopScaler><ProjectDetail projectId={page.replace('project-', '')} onNavigate={navigate} /></DesktopScaler>
+  if (page === 'contact')  return <DesktopScaler><Contact  onNavigate={navigate} /></DesktopScaler>
+  return <DesktopScaler><Home onNavigate={navigate} /></DesktopScaler>
 }
