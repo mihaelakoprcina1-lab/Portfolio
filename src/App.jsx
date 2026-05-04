@@ -7,6 +7,7 @@ import Projects from './components/Projects'
 import ProjectsMobile from './components/ProjectsMobile'
 import ProjectDetail from './components/ProjectDetail'
 import Contact from './components/Contact'
+import ContactMobile from './components/ContactMobile'
 
 function MobileScaler({ children }) {
   const [scale, setScale] = useState(() => window.innerWidth / 390)
@@ -77,7 +78,7 @@ export default function App() {
     if (page === 'about')    return <MobileScaler><AboutMobile    onNavigate={navigate} /></MobileScaler>
     if (page === 'projects') return <MobileScaler><ProjectsMobile onNavigate={navigate} /></MobileScaler>
     if (page.startsWith('project-')) return <ProjectDetail projectId={page.replace('project-', '')} onNavigate={navigate} />
-    if (page === 'contact')  return <Contact onNavigate={navigate} />
+    if (page === 'contact')  return <MobileScaler><ContactMobile onNavigate={navigate} /></MobileScaler>
     return <MobileScaler><HomeMobile onNavigate={navigate} /></MobileScaler>
   }
 

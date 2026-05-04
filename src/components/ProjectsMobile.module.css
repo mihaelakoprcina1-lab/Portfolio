@@ -1,21 +1,20 @@
 .page {
   position: relative;
-  width: 100vw;
-  height: 100svh;
-  min-height: 844px;
+  width: 390px;
+  height: 844px;
   background: #680E0F;
   overflow: hidden;
 }
 
-/* ── Vertical line ── */
-.vLine {
+/* ── Line (horizontal + vertical T shape) ── */
+.line {
   position: absolute;
-  width: 1px;
-  height: 100%;
-  left: 50%;
-  top: 0;
-  background: rgba(255, 248, 189, 0.2);
+  width: 389px;
+  height: 724px;
+  left: 0.5px;
+  top: 120px;
   z-index: 0;
+  pointer-events: none;
 }
 
 /* ── Nav ── */
@@ -25,10 +24,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: min(300px, 80vw);
+  width: 300px;
   height: 60px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 150px);
   top: 28px;
   padding: 20px 0;
   background: #680E0F;
@@ -61,54 +59,74 @@
 .navLink:hover { color: #FFF8BD; }
 .active { color: #FFF8BD; }
 
-/* ── Project list ── */
+/* ── Project list container ── */
 .list {
   position: absolute;
-  top: 112px;
-  left: 0;
-  right: 0;
+  left: 12px;
+  top: 185px;
+  width: 365px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 0 14px;
+  align-items: center;
+  padding: 32px 0;
+  background: #680E0F;
   box-sizing: border-box;
   z-index: 3;
-  overflow: visible;
 }
 
+/* Row 1: 01 + 02 */
 .row {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  gap: 0;
-  width: 100%;
-  overflow: visible;
+  align-items: center;
+  gap: 12px;
+  width: 365px;
 }
 
-.rowMid {
+/* Row 3: 04 + 05 */
+.rowBottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+  width: 340px;
+}
+
+/* Items in rows */
+.item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding-left: 14vw;
-  overflow: visible;
-}
-
-.projectItem {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   opacity: 0.5;
+  transition: opacity 0.2s ease;
   flex: 1;
-  overflow: visible;
+}
+
+.item:hover,
+.item:active { opacity: 1; }
+
+/* Middle item: 03 centered */
+.itemMid {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.5;
+  width: 178px;
   transition: opacity 0.2s ease;
 }
 
-.projectItem:active { opacity: 1; }
+.itemMid:hover,
+.itemMid:active { opacity: 1; }
 
 .num {
   font-family: 'Geist Mono', monospace;
@@ -117,45 +135,56 @@
   line-height: 20px;
   letter-spacing: 0.15em;
   color: #FFF8BD;
+  white-space: nowrap;
+  padding-top: 4px;
 }
 
 .name {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(38px, 11.5vw, 48px);
-  line-height: 0.88em;
+  font-size: 42px;
+  line-height: 74px;
   letter-spacing: -0.04em;
   color: #FFF8BD;
   white-space: nowrap;
 }
 
+/* ── Glass decorative image ── */
+.glass {
+  position: absolute;
+  width: 954px;
+  height: 954px;
+  left: calc(50% - 954px/2 + 525px);
+  top: 274px;
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* ── Star ── */
 .star {
   position: absolute;
-  width: 22px;
-  height: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 577px;
+  width: 39px;
+  height: 39px;
+  left: calc(50% - 19.5px);
+  top: 559px;
   z-index: 3;
   pointer-events: none;
 }
 
-/* ── "CLICK FOR MORE" ── */
+/* ── CLICK FOR MORE ── */
 .clickFrame {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  width: 172px;
+  width: 197px;
   height: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 610px;
+  left: calc(50% - 98.5px);
+  top: 616px;
   background: #680E0F;
-  z-index: 3;
   box-sizing: border-box;
+  z-index: 3;
 }
 
 .clickLabel {
@@ -171,26 +200,27 @@
   white-space: nowrap;
 }
 
-/* ── "(5)" count ── */
+/* ── (5) count ── */
 .countFrame {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 720px;
+  width: 56px;
+  height: 114px;
+  left: calc(50% - 28px);
+  top: 694px;
+  padding: 20px 10px;
   background: #680E0F;
-  z-index: 3;
-  padding: 10px;
   box-sizing: border-box;
+  z-index: 3;
 }
 
 .count {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: 48px;
-  line-height: 1em;
+  font-size: 36px;
+  line-height: 74px;
   letter-spacing: -0.04em;
   color: #FFF8BD;
   opacity: 0.2;
